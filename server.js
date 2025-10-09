@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 // server.js - Simple Express server for sending FCM notifications
 const express = require('express');
 const admin = require('firebase-admin');
@@ -9,21 +7,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Initialize Firebase Admin with environment variables
+// Initialize Firebase Admin with your service account key
+const serviceAccount = require('./service-account-key.json');
 admin.initializeApp({
-  credential: admin.credential.cert({
-    type: process.env.FIREBASE_TYPE,
-    project_id: process.env.FIREBASE_PROJECT_ID,
-    private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
-    private_key: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-    client_email: process.env.FIREBASE_CLIENT_EMAIL,
-    client_id: process.env.FIREBASE_CLIENT_ID,
-    auth_uri: process.env.FIREBASE_AUTH_URI,
-    token_uri: process.env.FIREBASE_TOKEN_URI,
-    auth_provider_x509_cert_url: process.env.FIREBASE_AUTH_PROVIDER_CERT_URL,
-    client_x509_cert_url: process.env.FIREBASE_CLIENT_CERT_URL,
-    universal_domain: process.env.universe_domain
-  })
+  credential: admin.credential.cert(serviceAccount)
 });
 
 // Simple endpoint to send FCM notification
