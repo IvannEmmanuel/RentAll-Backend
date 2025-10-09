@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 // server.js - Simple Express server for sending FCM notifications
 const express = require('express');
 const admin = require('firebase-admin');
