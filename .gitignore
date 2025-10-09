@@ -1,1 +1,6 @@
 service-account-key.json
+
+.env*.local
+
+
+env
